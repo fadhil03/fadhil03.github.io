@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg3" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#1565c0"/>
+      <stop offset="100%" stop-color="#0d3c75"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="98" fill="url(#bg3)" stroke="#ffca28" stroke-width="4"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#ffca28" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- School building -->
+  <rect x="72" y="90" width="56" height="32" fill="none" stroke="#ffca28" stroke-width="2.5"/>
+  <polygon points="66,90 100,65 134,90" fill="none" stroke="#ffca28" stroke-width="2.5"/>
+  <rect x="90" y="100" width="12" height="22" rx="1" fill="#ffca28" opacity="0.8"/>
+  <rect x="76" y="96" width="10" height="10" rx="1" fill="none" stroke="#ffca28" stroke-width="1.5"/>
+  <rect x="114" y="96" width="10" height="10" rx="1" fill="none" stroke="#ffca28" stroke-width="1.5"/>
+  <!-- Flag on top -->
+  <line x1="100" y1="65" x2="100" y2="52" stroke="#ffca28" stroke-width="2"/>
+  <polygon points="100,52 114,56 100,60" fill="#e53935"/>
+  <!-- Gear symbol (TKJ) -->
+  <circle cx="100" cy="80" r="5" fill="#ffca28"/>
+  <!-- Base text -->
+  <rect x="68" y="128" width="64" height="3" rx="1" fill="#ffca28"/>
+  <text x="100" y="147" text-anchor="middle" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#ffffff" letter-spacing="0.3">SMK NEGERI 10</text>
+  <text x="100" y="161" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#ffca28" letter-spacing="0.3">MAKASSAR</text>
+</svg>
