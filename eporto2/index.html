@@ -385,7 +385,13 @@
     .footer-logo-grid { display: flex; flex-direction: row; align-items: center; gap: 20px; flex-wrap: wrap; }
     .footer-logo-item { display: flex; align-items: center; justify-content: center; transition: opacity 0.2s, transform 0.2s; }
     .footer-logo-item:hover { opacity: 0.85; transform: translateY(-2px); }
-    .footer-logo-item__img-wrap { display: flex; align-items: center; justify-content: center; }
+    .footer-logo-item__img-wrap {
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 10px 14px;
+    }
     .footer-logo-item__img-wrap img {
       height: 72px; width: auto; max-width: 140px;
       object-fit: contain; display: block;
