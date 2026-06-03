@@ -173,7 +173,7 @@
     /* ── HERO ── */
     .hero {
       margin-top: 68px;
-      min-height: 52vh;
+      min-height: calc(100vh - 68px);
       background: #06060f;
       color: var(--on-dark);
       display: flex; align-items: center; justify-content: center;
@@ -206,7 +206,7 @@
 
     /* Identity card */
     .id-card {
-      flex-shrink: 0; width: 260px;
+      flex-shrink: 0; width: 320px;
       background: rgba(255,255,255,0.042);
       border: 1px solid rgba(255,255,255,0.09);
       backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
@@ -218,7 +218,7 @@
       background: linear-gradient(155deg, rgba(88,86,214,0.09) 0%, transparent 45%, rgba(0,102,204,0.07) 100%);
     }
     .id-card__avatar {
-      width: 88px; height: 88px; border-radius: 50%;
+      width: 170px; height: 170px; border-radius: 50%;
       background: linear-gradient(145deg, #1e1e2e, #0c0c18);
       display: flex; align-items: center; justify-content: center;
       font-size: 28px; font-weight: 300; color: rgba(255,255,255,0.5);
@@ -236,7 +236,7 @@
     }
     @keyframes spin-ring { to { transform: rotate(360deg); } }
     .id-card__name {
-      font-size: 15px; font-weight: 700; color: #fff;
+      font-size: 17px; font-weight: 700; color: #fff;
       letter-spacing: -0.3px; line-height: 1.2;
     }
     .id-card__role { font-size: 11px; color: rgba(255,255,255,0.42); margin-top: 4px; }
