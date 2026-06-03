@@ -150,8 +150,78 @@
       background: rgba(255,255,255,0.08);
     }
     .global-nav__links .btn-pill { margin-left: 8px; }
-    @media (max-width: 768px) { .global-nav__links { display: none; } }
-    @media (max-width: 768px) { .global-nav { padding: 0 22px; } }
+
+    /* ── HAMBURGER BUTTON ── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 36px;
+      height: 28px;
+      z-index: 1010;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
+      transition: transform 0.32s var(--ease-spring), opacity 0.2s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .global-nav { padding: 0 20px; }
+      .global-nav__divider { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .global-nav__links {
+        position: fixed;
+        top: 68px; left: 0; right: 0;
+        background: rgba(8,8,18,0.97);
+        backdrop-filter: saturate(180%) blur(28px);
+        -webkit-backdrop-filter: saturate(180%) blur(28px);
+        flex-direction: column;
+        padding: 16px 20px 24px;
+        gap: 4px;
+        border-bottom: 1px solid rgba(255,255,255,0.09);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+        transform: translateY(-8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s var(--ease-out), opacity 0.3s;
+        z-index: 999;
+      }
+      .global-nav__links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .global-nav__links li { width: 100%; }
+      .global-nav__links li a:not(.btn-pill) {
+        display: block;
+        font-size: 16px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        letter-spacing: -0.2px;
+      }
+      .global-nav__links .btn-pill {
+        margin-left: 0;
+        margin-top: 8px;
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        padding: 13px 22px;
+      }
+    }
 
     /* ──────────────────────────────────────
        BUTTONS
@@ -1166,6 +1236,23 @@
     .back-top:hover { background: rgba(29,29,31,1); transform: translateY(-3px); }
 
     /* ──────────────────────────────────────
+       MOBILE EXTRAS
+    ────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .blockquote { padding: 36px 24px; }
+      .mission-banner { padding: 36px 24px; }
+      .hero__split { gap: 28px; }
+      .refleksi-card { padding: 28px 20px; }
+      .footer-logo-grid { flex-wrap: wrap; justify-content: center; }
+      .footer-logo-item__img-wrap { width: 72px !important; height: 52px !important; }
+      .pdf-viewer { aspect-ratio: unset; height: 400px; }
+    }
+    @media (max-width: 480px) {
+      .siklus-capsule { white-space: normal; font-size: 12px; }
+      .hero { padding: 36px 16px 80px; }
+    }
+
+    /* ──────────────────────────────────────
        SECTION PROGRESS INDICATOR
     ────────────────────────────────────── */
     .read-progress {
@@ -1195,13 +1282,16 @@
   <nav class="global-nav" id="globalNav">
     <a class="global-nav__brand" href="#">E-Portfolio 1</a>
     <span class="global-nav__divider" aria-hidden="true"></span>
-    <ul class="global-nav__links">
+    <ul class="global-nav__links" id="navLinks">
       <li><a href="#profil">Profil</a></li>
       <li><a href="#artefak">Artefak</a></li>
       <li><a href="#penilaian">Lampiran 7 &amp; 8</a></li>
       <li><a href="#model-guru">Model Guru</a></li>
       <li><a class="btn-pill btn-pill--sm" href="../eporto2/">E-Portfolio 2</a></li>
     </ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- ════════════════════════════════════
@@ -1963,6 +2053,29 @@
   window.addEventListener('scroll', () => {
     nav.classList.toggle('solid', window.scrollY > 80);
   }, { passive: true });
+
+  /* ─── HAMBURGER MENU ────────────────────────── */
+  const hamburger = document.getElementById('navHamburger');
+  const navLinks  = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+  document.addEventListener('click', e => {
+    if (!nav.contains(e.target)) {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    }
+  });
 
   /* ─── SCORE PILL ANIMATE ON VIEW ────────────── */
   const pillObs = new IntersectionObserver((entries) => {
