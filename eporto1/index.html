@@ -1429,48 +1429,96 @@
   </section>
 
   <!-- ════════════════════════════════════
-       03 · LAMPIRAN 7 & 8
+       03 · LAMPIRAN 7 & 8  (PDF VIEWER)
   ═════════════════════════════════════ -->
   <section class="tile tile--dark" id="penilaian">
     <div class="tile__inner">
-      <p class="eyebrow eyebrow--dark reveal">03 · Lampiran 7 & 8</p>
-      <h2 class="display-lg reveal d1" style="color:var(--on-dark);">Penilaian Guru Pamong<br>& DPL — 3 Siklus.</h2>
+      <p class="eyebrow eyebrow--dark reveal">03 · Lampiran 7 &amp; 8</p>
+      <h2 class="display-lg reveal d1" style="color:var(--on-dark);">Penilaian Guru Pamong<br>&amp; DPL — 3 Siklus.</h2>
       <p class="lead mt-lg reveal d2" style="color:var(--body-muted);max-width:640px;margin-left:auto;margin-right:auto;">
-        Rekap penilaian penyusunan perangkat (Lampiran 7) dan praktik mengajar (Lampiran 8) selama tiga siklus PPL Terbimbing.
+        Dokumen penilaian penyusunan perangkat (Lampiran 7) dan praktik mengajar (Lampiran 8) selama tiga siklus PPL Terbimbing.
       </p>
 
-      <!-- Tren skor visual -->
-      <div class="score-summary reveal d3">
-        <div class="score-summary__title">Tren Skor Keseluruhan (Rata-rata GP & DPL)</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
-          <div>
-            <div class="caption" style="color:var(--body-muted);margin-bottom:8px;">Lampiran 7 — Perangkat Pembelajaran</div>
-            <div class="trend-chart" id="trendL7">
-              <div class="trend-bar" style="height:60%;" data-label="S1: 83.4"></div>
-              <div class="trend-bar" style="height:75%;" data-label="S2: 87.9"></div>
-              <div class="trend-bar" style="height:95%;" data-label="S3: 91.9"></div>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:8px;">
-              <span class="caption" style="flex:1;color:var(--body-muted);">Siklus 1</span>
-              <span class="caption" style="flex:1;color:var(--body-muted);">Siklus 2</span>
-              <span class="caption" style="flex:1;color:var(--body-muted);">Siklus 3</span>
-            </div>
-          </div>
-          <div>
-            <div class="caption" style="color:var(--body-muted);margin-bottom:8px;">Lampiran 8 — Praktik Mengajar</div>
-            <div class="trend-chart" id="trendL8">
-              <div class="trend-bar" style="height:55%;" data-label="S1: 81.4"></div>
-              <div class="trend-bar" style="height:72%;" data-label="S2: 85.3"></div>
-              <div class="trend-bar" style="height:92%;" data-label="S3: 89.6"></div>
-            </div>
-            <div style="display:flex;gap:8px;margin-top:8px;">
-              <span class="caption" style="flex:1;color:var(--body-muted);">Siklus 1</span>
-              <span class="caption" style="flex:1;color:var(--body-muted);">Siklus 2</span>
-              <span class="caption" style="flex:1;color:var(--body-muted);">Siklus 3</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <style>
+        .siklus-info {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 28px;
+          align-items: center;
+        }
+        .siklus-capsule {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 9999px;
+          padding: 7px 16px;
+          font-size: 13px;
+          color: rgba(255,255,255,0.7);
+          white-space: nowrap;
+        }
+        .siklus-capsule__dot {
+          width: 6px; height: 6px;
+          border-radius: 50%;
+          background: var(--primary-on-dark);
+          flex-shrink: 0;
+        }
+        .pdf-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-top: 4px;
+        }
+        @media (max-width: 700px) { .pdf-grid { grid-template-columns: 1fr; } }
+        .pdf-block__label {
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.7px;
+          text-transform: uppercase;
+          color: var(--primary-on-dark);
+          margin-bottom: 10px;
+        }
+        .pdf-viewer {
+          width: 100%;
+          aspect-ratio: 3/4;
+          border: none;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.04);
+          display: block;
+        }
+        .pdf-fallback {
+          width: 100%;
+          aspect-ratio: 3/4;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.04);
+          border: 1px dashed rgba(255,255,255,0.12);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          text-align: center;
+          padding: 24px;
+        }
+        .pdf-fallback__icon { font-size: 36px; opacity: 0.5; }
+        .pdf-fallback__text { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.5; }
+        .pdf-fallback__link {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: var(--primary);
+          color: #fff;
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 500;
+          padding: 8px 18px;
+          border-radius: 9999px;
+          transition: background 0.2s;
+        }
+        .pdf-fallback__link:hover { background: var(--primary-focus); }
+      </style>
 
       <!-- Tabs siklus -->
       <div style="margin-top:48px;text-align:left;">
@@ -1482,93 +1530,83 @@
 
         <!-- ─ SIKLUS 1 ─ -->
         <div class="cycle-panel active" id="cycle-1">
-          <p class="tagline" style="color:var(--body-muted);margin-bottom:6px;">Materi: Mail Server</p>
-          <p class="caption" style="color:var(--ink-muted-48);margin-bottom:24px;">Guru Pamong: Drs. H. Rusdi Palemmai, M.Pd. &nbsp;·&nbsp; DPL: Nur Alamsyah, S.Pd., M.Pd.</p>
-
-          <p class="caption-strong" style="color:var(--body-muted);margin-bottom:12px;">LAMPIRAN 7 — Penilaian Penyusunan Perangkat Pembelajaran</p>
-          <table class="assessment-table">
-            <thead><tr><th>Aspek</th><th>Indikator</th><th>Skor GP</th><th>Skor DPL</th><th>Catatan</th></tr></thead>
-            <tbody>
-              <tr><td>Kesesuaian Tujuan Pembelajaran</td><td>Tujuan operasional, terukur, sesuai CP</td><td><span class="score-pill score-pill--a">88</span></td><td><span class="score-pill score-pill--a">86</span></td><td>Perlu kejelasan kata kerja operasional</td></tr>
-              <tr><td>Kelengkapan Komponen RPP</td><td>Semua komponen tersedia & konsisten</td><td><span class="score-pill score-pill--a">90</span></td><td><span class="score-pill score-pill--a">88</span></td><td>Format sesuai panduan</td></tr>
-              <tr><td>Kualitas Media & Sumber Belajar</td><td>Media relevan, variatif, aksesibel</td><td><span class="score-pill score-pill--b">78</span></td><td><span class="score-pill score-pill--b">75</span></td><td>Tambahkan variasi media digital</td></tr>
-              <tr><td>Rancangan Penilaian</td><td>Instrumen valid, sesuai tujuan</td><td><span class="score-pill score-pill--b">80</span></td><td><span class="score-pill score-pill--a">82</span></td><td>Rubrik perlu diperjelas</td></tr>
-              <tr><td><strong>Rata-rata</strong></td><td></td><td><span class="score-pill score-pill--a"><strong>84</strong></span></td><td><span class="score-pill score-pill--a"><strong>82.75</strong></span></td><td></td></tr>
-            </tbody>
-          </table>
-          <hr class="hairline hairline--dark" />
-          <p class="caption-strong" style="color:var(--body-muted);margin-bottom:12px;">LAMPIRAN 8 — Penilaian Praktik Mengajar</p>
-          <table class="assessment-table">
-            <thead><tr><th>Aspek</th><th>Indikator</th><th>Skor GP</th><th>Skor DPL</th><th>Catatan</th></tr></thead>
-            <tbody>
-              <tr><td>Pembukaan Pembelajaran</td><td>Apersepsi relevan, siswa terlibat</td><td><span class="score-pill score-pill--b">80</span></td><td><span class="score-pill score-pill--b">78</span></td><td>Motivasi awal perlu lebih kuat</td></tr>
-              <tr><td>Penguasaan Materi</td><td>Akurat, kontekstual, sesuai level</td><td><span class="score-pill score-pill--a">88</span></td><td><span class="score-pill score-pill--a">90</span></td><td>Guru menguasai materi dengan baik</td></tr>
-              <tr><td>Pengelolaan Kelas</td><td>Kondisi kondusif, transisi efisien</td><td><span class="score-pill score-pill--b">75</span></td><td><span class="score-pill score-pill--b">77</span></td><td>Siswa pojok kurang terpantau</td></tr>
-              <tr><td>Interaksi & Umpan Balik</td><td>Respon terhadap pertanyaan siswa</td><td><span class="score-pill score-pill--a">85</span></td><td><span class="score-pill score-pill--a">83</span></td><td>Respons pertanyaan cukup baik</td></tr>
-              <tr><td>Penutupan & Refleksi</td><td>Rangkuman bersama, tindak lanjut</td><td><span class="score-pill score-pill--b">78</span></td><td><span class="score-pill score-pill--b">80</span></td><td>Alokasi waktu penutup kurang</td></tr>
-              <tr><td><strong>Rata-rata</strong></td><td></td><td><span class="score-pill score-pill--a"><strong>81.2</strong></span></td><td><span class="score-pill score-pill--a"><strong>81.6</strong></span></td><td></td></tr>
-            </tbody>
-          </table>
+          <div class="siklus-info">
+            <span class="siklus-capsule"><span class="siklus-capsule__dot"></span>Materi: Mail Server</span>
+            <span class="siklus-capsule">👨‍🏫 Guru Pamong: Drs. H. Rusdi Palemmai, M.Pd.</span>
+            <span class="siklus-capsule">🎓 DPL: Nur Alamsyah, S.Pd., M.Pd.</span>
+          </div>
+          <div class="pdf-grid">
+            <div>
+              <p class="pdf-block__label">Lampiran 7 — Penilaian Perangkat</p>
+              <div class="pdf-fallback">
+                <div class="pdf-fallback__icon">📄</div>
+                <p class="pdf-fallback__text">PDF Lampiran 7 Siklus 1<br>belum diunggah</p>
+                <a href="#" class="pdf-fallback__link">Buka PDF ↗</a>
+              </div>
+            </div>
+            <div>
+              <p class="pdf-block__label">Lampiran 8 — Penilaian Praktik Mengajar</p>
+              <div class="pdf-fallback">
+                <div class="pdf-fallback__icon">📄</div>
+                <p class="pdf-fallback__text">PDF Lampiran 8 Siklus 1<br>belum diunggah</p>
+                <a href="#" class="pdf-fallback__link">Buka PDF ↗</a>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- ─ SIKLUS 2 ─ -->
         <div class="cycle-panel" id="cycle-2">
-          <p class="tagline" style="color:var(--body-muted);margin-bottom:6px;">Materi: Search Engine & Media Digital</p>
-          <p class="caption" style="color:var(--ink-muted-48);margin-bottom:24px;">Guru Pamong: Drs. H. Rusdi Palemmai, M.Pd. &nbsp;·&nbsp; DPL: Nur Alamsyah, S.Pd., M.Pd.</p>
-          <p class="caption-strong" style="color:var(--body-muted);margin-bottom:12px;">LAMPIRAN 7 — Penilaian Penyusunan Perangkat Pembelajaran</p>
-          <table class="assessment-table">
-            <thead><tr><th>Aspek</th><th>Indikator</th><th>Skor GP</th><th>Skor DPL</th><th>Catatan</th></tr></thead>
-            <tbody>
-              <tr><td>Kesesuaian Tujuan Pembelajaran</td><td>Tujuan operasional, terukur, sesuai CP</td><td><span class="score-pill score-pill--a">90</span></td><td><span class="score-pill score-pill--a">89</span></td><td>Perbaikan dari siklus 1 terlihat jelas</td></tr>
-              <tr><td>Kelengkapan Komponen RPP</td><td>Semua komponen tersedia & konsisten</td><td><span class="score-pill score-pill--a">91</span></td><td><span class="score-pill score-pill--a">90</span></td><td>Sangat lengkap</td></tr>
-              <tr><td>Kualitas Media & Sumber Belajar</td><td>Media relevan, variatif, aksesibel</td><td><span class="score-pill score-pill--a">85</span></td><td><span class="score-pill score-pill--a">86</span></td><td>Simulasi Packet Tracer sangat efektif</td></tr>
-              <tr><td>Rancangan Penilaian</td><td>Instrumen valid, sesuai tujuan</td><td><span class="score-pill score-pill--a">87</span></td><td><span class="score-pill score-pill--a">85</span></td><td>Rubrik lebih detail dari siklus 1</td></tr>
-              <tr><td><strong>Rata-rata</strong></td><td></td><td><span class="score-pill score-pill--a"><strong>88.25</strong></span></td><td><span class="score-pill score-pill--a"><strong>87.5</strong></span></td><td></td></tr>
-            </tbody>
-          </table>
-          <hr class="hairline hairline--dark" />
-          <p class="caption-strong" style="color:var(--body-muted);margin-bottom:12px;">LAMPIRAN 8 — Penilaian Praktik Mengajar</p>
-          <table class="assessment-table">
-            <thead><tr><th>Aspek</th><th>Indikator</th><th>Skor GP</th><th>Skor DPL</th><th>Catatan</th></tr></thead>
-            <tbody>
-              <tr><td>Pembukaan Pembelajaran</td><td>Apersepsi relevan, siswa terlibat</td><td><span class="score-pill score-pill--a">85</span></td><td><span class="score-pill score-pill--a">83</span></td><td>Apersepsi lebih kuat dari siklus 1</td></tr>
-              <tr><td>Penguasaan Materi</td><td>Akurat, kontekstual, sesuai level</td><td><span class="score-pill score-pill--a">90</span></td><td><span class="score-pill score-pill--a">92</span></td><td>Penjelasan VLAN sangat kontekstual</td></tr>
-              <tr><td>Pengelolaan Kelas</td><td>Kondisi kondusif, transisi efisien</td><td><span class="score-pill score-pill--a">82</span></td><td><span class="score-pill score-pill--a">80</span></td><td>Ada peningkatan dari siklus 1</td></tr>
-              <tr><td>Interaksi & Umpan Balik</td><td>Respon terhadap pertanyaan siswa</td><td><span class="score-pill score-pill--a">88</span></td><td><span class="score-pill score-pill--a">86</span></td><td>Sangat responsif terhadap siswa</td></tr>
-              <tr><td>Penutupan & Refleksi</td><td>Rangkuman bersama, tindak lanjut</td><td><span class="score-pill score-pill--a">84</span></td><td><span class="score-pill score-pill--a">83</span></td><td>Penutup lebih terstruktur</td></tr>
-              <tr><td><strong>Rata-rata</strong></td><td></td><td><span class="score-pill score-pill--a"><strong>85.8</strong></span></td><td><span class="score-pill score-pill--a"><strong>84.8</strong></span></td><td></td></tr>
-            </tbody>
-          </table>
+          <div class="siklus-info">
+            <span class="siklus-capsule"><span class="siklus-capsule__dot"></span>Materi: Search Engine &amp; Media Digital</span>
+            <span class="siklus-capsule">👨‍🏫 Guru Pamong: Drs. H. Rusdi Palemmai, M.Pd.</span>
+            <span class="siklus-capsule">🎓 DPL: Nur Alamsyah, S.Pd., M.Pd.</span>
+          </div>
+          <div class="pdf-grid">
+            <div>
+              <p class="pdf-block__label">Lampiran 7 — Penilaian Perangkat</p>
+              <div class="pdf-fallback">
+                <div class="pdf-fallback__icon">📄</div>
+                <p class="pdf-fallback__text">PDF Lampiran 7 Siklus 2<br>belum diunggah</p>
+                <a href="#" class="pdf-fallback__link">Buka PDF ↗</a>
+              </div>
+            </div>
+            <div>
+              <p class="pdf-block__label">Lampiran 8 — Penilaian Praktik Mengajar</p>
+              <div class="pdf-fallback">
+                <div class="pdf-fallback__icon">📄</div>
+                <p class="pdf-fallback__text">PDF Lampiran 8 Siklus 2<br>belum diunggah</p>
+                <a href="#" class="pdf-fallback__link">Buka PDF ↗</a>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- ─ SIKLUS 3 ─ -->
         <div class="cycle-panel" id="cycle-3">
-          <p class="tagline" style="color:var(--body-muted);margin-bottom:6px;">Materi: Teknologi Digital</p>
-          <p class="caption" style="color:var(--ink-muted-48);margin-bottom:24px;">Guru Pamong: Drs. H. Rusdi Palemmai, M.Pd. &nbsp;·&nbsp; DPL: Nur Alamsyah, S.Pd., M.Pd.</p>
-          <p class="caption-strong" style="color:var(--body-muted);margin-bottom:12px;">LAMPIRAN 7 — Penilaian Penyusunan Perangkat Pembelajaran</p>
-          <table class="assessment-table">
-            <thead><tr><th>Aspek</th><th>Indikator</th><th>Skor GP</th><th>Skor DPL</th><th>Catatan</th></tr></thead>
-            <tbody>
-              <tr><td>Kesesuaian Tujuan Pembelajaran</td><td>Tujuan operasional, terukur, sesuai CP</td><td><span class="score-pill score-pill--a">93</span></td><td><span class="score-pill score-pill--a">92</span></td><td>Tujuan sangat presisi dan terukur</td></tr>
-              <tr><td>Kelengkapan Komponen RPP</td><td>Semua komponen tersedia & konsisten</td><td><span class="score-pill score-pill--a">95</span></td><td><span class="score-pill score-pill--a">93</span></td><td>Perangkat terlengkap dari 3 siklus</td></tr>
-              <tr><td>Kualitas Media & Sumber Belajar</td><td>Media relevan, variatif, aksesibel</td><td><span class="score-pill score-pill--a">90</span></td><td><span class="score-pill score-pill--a">91</span></td><td>Integrasi video & simulasi sangat baik</td></tr>
-              <tr><td>Rancangan Penilaian</td><td>Instrumen valid, sesuai tujuan</td><td><span class="score-pill score-pill--a">91</span></td><td><span class="score-pill score-pill--a">90</span></td><td>Rubrik komprehensif & terdiferensiasi</td></tr>
-              <tr><td><strong>Rata-rata</strong></td><td></td><td><span class="score-pill score-pill--a"><strong>92.25</strong></span></td><td><span class="score-pill score-pill--a"><strong>91.5</strong></span></td><td></td></tr>
-            </tbody>
-          </table>
-          <hr class="hairline hairline--dark" />
-          <p class="caption-strong" style="color:var(--body-muted);margin-bottom:12px;">LAMPIRAN 8 — Penilaian Praktik Mengajar</p>
-          <table class="assessment-table">
-            <thead><tr><th>Aspek</th><th>Indikator</th><th>Skor GP</th><th>Skor DPL</th><th>Catatan</th></tr></thead>
-            <tbody>
-              <tr><td>Pembukaan Pembelajaran</td><td>Apersepsi relevan, siswa terlibat</td><td><span class="score-pill score-pill--a">90</span></td><td><span class="score-pill score-pill--a">88</span></td><td>Pembukaan sangat engaging</td></tr>
-              <tr><td>Penguasaan Materi</td><td>Akurat, kontekstual, sesuai level</td><td><span class="score-pill score-pill--a">93</span></td><td><span class="score-pill score-pill--a">94</span></td><td>Siswa sangat antusias</td></tr>
-              <tr><td>Pengelolaan Kelas</td><td>Kondisi kondusif, transisi efisien</td><td><span class="score-pill score-pill--a">88</span></td><td><span class="score-pill score-pill--a">86</span></td><td>Sangat kondusif, transisi mulus</td></tr>
-              <tr><td>Interaksi & Umpan Balik</td><td>Respon terhadap pertanyaan siswa</td><td><span class="score-pill score-pill--a">91</span></td><td><span class="score-pill score-pill--a">90</span></td><td>Pertanyaan Socratic sangat efektif</td></tr>
-              <tr><td>Penutupan & Refleksi</td><td>Rangkuman bersama, tindak lanjut</td><td><span class="score-pill score-pill--a">89</span></td><td><span class="score-pill score-pill--a">87</span></td><td>Refleksi siswa sangat terstruktur</td></tr>
-              <tr><td><strong>Rata-rata</strong></td><td></td><td><span class="score-pill score-pill--a"><strong>90.2</strong></span></td><td><span class="score-pill score-pill--a"><strong>89</strong></span></td><td></td></tr>
-            </tbody>
-          </table>
+          <div class="siklus-info">
+            <span class="siklus-capsule"><span class="siklus-capsule__dot"></span>Materi: Teknologi Digital</span>
+            <span class="siklus-capsule">👨‍🏫 Guru Pamong: Drs. H. Rusdi Palemmai, M.Pd.</span>
+            <span class="siklus-capsule">🎓 DPL: Nur Alamsyah, S.Pd., M.Pd.</span>
+          </div>
+          <div class="pdf-grid">
+            <div>
+              <p class="pdf-block__label">Lampiran 7 — Penilaian Perangkat</p>
+              <div class="pdf-fallback">
+                <div class="pdf-fallback__icon">📄</div>
+                <p class="pdf-fallback__text">PDF Lampiran 7 Siklus 3<br>belum diunggah</p>
+                <a href="#" class="pdf-fallback__link">Buka PDF ↗</a>
+              </div>
+            </div>
+            <div>
+              <p class="pdf-block__label">Lampiran 8 — Penilaian Praktik Mengajar</p>
+              <div class="pdf-fallback">
+                <div class="pdf-fallback__icon">📄</div>
+                <p class="pdf-fallback__text">PDF Lampiran 8 Siklus 3<br>belum diunggah</p>
+                <a href="#" class="pdf-fallback__link">Buka PDF ↗</a>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
