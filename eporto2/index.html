@@ -6,63 +6,707 @@
   <title>E-Portfolio 2 — Muhammad Fadhil Hisyam</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0066cc;
+      --primary-focus: #0071e3;
+      --primary-on-dark: #2997ff;
+      --ink: #1d1d1f;
+      --body-muted: #cccccc;
+      --ink-muted-80: #333333;
+      --ink-muted-48: #7a7a7a;
+      --hairline: #e0e0e0;
+      --canvas: #ffffff;
+      --canvas-parchment: #f5f5f7;
+      --surface-tile-1: #272729;
+      --surface-tile-2: #2a2a2c;
+      --on-dark: #ffffff;
+      --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+      color: var(--ink);
+      background: var(--canvas);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0; transform: scale(0.92);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-spring);
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    .d1 { transition-delay: 0.05s; }
+    .d2 { transition-delay: 0.12s; }
+    .d3 { transition-delay: 0.19s; }
+    .d4 { transition-delay: 0.26s; }
+
+    /* ── NAV ── */
+    .global-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(8,8,18,0.88);
+      backdrop-filter: saturate(200%) blur(28px);
+      -webkit-backdrop-filter: saturate(200%) blur(28px);
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 44px;
+      transition: background 0.35s, box-shadow 0.35s;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .global-nav.solid {
+      background: rgba(8,8,18,0.97);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 12px 40px rgba(0,0,0,0.5);
+    }
+    .global-nav__brand {
+      color: var(--on-dark); font-size: 15px; font-weight: 700;
+      letter-spacing: -0.3px; text-decoration: none; flex-shrink: 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .global-nav__brand::before {
+      content: ''; display: block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--primary); box-shadow: 0 0 8px rgba(0,102,204,0.8); flex-shrink: 0;
+    }
+    .global-nav__divider { width: 1px; height: 20px; background: rgba(255,255,255,0.12); margin: 0 4px; }
+    .global-nav__links { display: flex; gap: 6px; list-style: none; align-items: center; }
+    .global-nav__links li a:not(.btn-pill) {
+      color: rgba(255,255,255,0.7); font-size: 13.5px; letter-spacing: -0.15px;
+      text-decoration: none; padding: 6px 12px; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .global-nav__links li a:not(.btn-pill):hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .global-nav__links .btn-pill { margin-left: 8px; }
+    @media (max-width: 768px) { .global-nav__links { display: none; } .global-nav { padding: 0 22px; } }
+
+    /* ── BUTTONS ── */
+    .btn-pill {
+      display: inline-block; background: var(--primary); color: #fff;
+      font-size: 17px; font-weight: 400; letter-spacing: -0.374px;
+      padding: 11px 22px; border-radius: 9999px; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s var(--ease-spring), box-shadow 0.2s;
+    }
+    .btn-pill:hover { background: var(--primary-focus); box-shadow: 0 4px 16px rgba(0,102,204,0.35); }
+    .btn-pill:active { transform: scale(0.95); }
+    .btn-pill--ghost {
+      background: transparent; color: var(--primary); border: 1px solid var(--primary);
+    }
+    .btn-pill--ghost:hover { background: rgba(0,102,204,0.06); box-shadow: none; }
+    .btn-pill--sm { font-size: 14px; padding: 8px 18px; }
+
+    /* ── TILES ── */
+    .tile { width: 100%; padding: 80px 22px; text-align: center; }
+    .tile--light  { background: var(--canvas); }
+    .tile--parch  { background: var(--canvas-parchment); }
+    .tile--dark   { background: var(--surface-tile-1); color: var(--on-dark); }
+    .tile--dark-2 { background: var(--surface-tile-2); color: var(--on-dark); }
+    .tile__inner  { max-width: 980px; margin: 0 auto; }
+    .tile__inner--wide { max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 640px) { .tile { padding: 56px 20px; } }
+
+    /* ── TYPOGRAPHY ── */
+    .hero-display {
+      font-family: "SF Pro Display", system-ui, -apple-system, sans-serif;
+      font-size: clamp(38px, 6vw, 72px); font-weight: 600;
+      line-height: 1.07; letter-spacing: -0.03em;
+    }
+    .display-lg {
+      font-family: "SF Pro Display", system-ui, -apple-system, sans-serif;
+      font-size: clamp(28px, 4vw, 48px); font-weight: 600;
+      line-height: 1.1; letter-spacing: -0.01em;
+    }
+    .display-md {
+      font-family: "SF Pro Text", system-ui, -apple-system, sans-serif;
+      font-size: clamp(22px, 3vw, 34px); font-weight: 600;
+      line-height: 1.35; letter-spacing: -0.374px;
+    }
+    .lead {
+      font-family: "SF Pro Display", system-ui, -apple-system, sans-serif;
+      font-size: clamp(20px, 2.5vw, 28px); font-weight: 400;
+      line-height: 1.3; letter-spacing: 0.196px;
+    }
+    .tagline {
+      font-family: "SF Pro Display", system-ui, -apple-system, sans-serif;
+      font-size: 21px; font-weight: 600; line-height: 1.19; letter-spacing: 0.231px;
+    }
+    .caption { font-size: 14px; line-height: 1.43; letter-spacing: -0.224px; }
+    .eyebrow {
+      font-size: 14px; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 12px;
+    }
+    .eyebrow--dark { color: var(--primary-on-dark); }
+
+    .mt-xs  { margin-top: 8px; }
+    .mt-sm  { margin-top: 12px; }
+    .mt-md  { margin-top: 17px; }
+    .mt-lg  { margin-top: 24px; }
+    .mt-xl  { margin-top: 32px; }
+    .mt-xxl { margin-top: 48px; }
+
+    .cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: 68px;
+      min-height: 52vh;
       background: #06060f;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
+      color: var(--on-dark);
+      display: flex; align-items: center; justify-content: center;
+      padding: 64px 48px 80px;
+      position: relative; overflow: hidden;
     }
-    .container { max-width: 480px; }
-    .badge {
-      display: inline-block;
-      background: rgba(0,102,204,0.15);
-      border: 1px solid rgba(0,102,204,0.35);
-      color: #2997ff;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 9999px;
-      margin-bottom: 24px;
+    .hero__mesh {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 50% 70% at 10% 50%, rgba(88,86,214,0.28) 0%, transparent 58%),
+        radial-gradient(ellipse 45% 55% at 90% 20%, rgba(0,102,204,0.22) 0%, transparent 58%),
+        radial-gradient(ellipse 40% 45% at 55% 90%, rgba(48,209,88,0.10) 0%, transparent 58%);
+      animation: mesh-breathe 9s ease-in-out infinite;
     }
-    h1 {
-      font-size: clamp(28px, 5vw, 42px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 16px;
+    @keyframes mesh-breathe { 0%,100% { opacity: 1; } 50% { opacity: 0.65; } }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 48px 48px;
+      z-index: 2; pointer-events: none;
     }
-    p {
-      color: rgba(255,255,255,0.5);
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 32px;
+    .hero__inner {
+      position: relative; z-index: 10;
+      max-width: 1100px; width: 100%;
+      display: flex; align-items: center; gap: 64px;
     }
-    a {
-      display: inline-block;
-      background: #0066cc;
-      color: #fff;
-      text-decoration: none;
-      padding: 11px 24px;
-      border-radius: 9999px;
-      font-size: 15px;
-      transition: background 0.2s;
+
+    /* Identity card */
+    .id-card {
+      flex-shrink: 0; width: 260px;
+      background: rgba(255,255,255,0.042);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border-radius: 28px; padding: 32px 22px 24px;
+      text-align: center; position: relative; overflow: hidden;
     }
-    a:hover { background: #0071e3; }
+    .id-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+      background: linear-gradient(155deg, rgba(88,86,214,0.09) 0%, transparent 45%, rgba(0,102,204,0.07) 100%);
+    }
+    .id-card__avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: linear-gradient(145deg, #1e1e2e, #0c0c18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 300; color: rgba(255,255,255,0.5);
+      margin: 0 auto 16px; position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .id-card__avatar::before {
+      content: ''; position: absolute; inset: -3px; border-radius: 50%;
+      background: conic-gradient(from 0deg, #0066cc 0%, #5e5ce6 25%, #30d158 50%, #ff9f0a 75%, #0066cc 100%);
+      z-index: -1; animation: spin-ring 5s linear infinite;
+    }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+    .id-card__name {
+      font-size: 15px; font-weight: 700; color: #fff;
+      letter-spacing: -0.3px; line-height: 1.2;
+    }
+    .id-card__role { font-size: 11px; color: rgba(255,255,255,0.42); margin-top: 4px; }
+    .id-card__rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
+      margin: 14px 0;
+    }
+    .id-card__meta { display: flex; flex-direction: column; gap: 8px; }
+    .id-card__meta-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: rgba(255,255,255,0.48); text-align: left;
+    }
+    .id-card__meta-icon {
+      width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center; font-size: 11px;
+    }
+
+    /* Hero text */
+    .hero__text { flex: 1; min-width: 0; }
+    .hero__eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+      color: var(--primary-on-dark); margin-bottom: 14px;
+    }
+    .hero__title {
+      font-family: "SF Pro Display", system-ui, -apple-system, sans-serif;
+      font-size: clamp(32px, 4.5vw, 58px); font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.03em;
+      background: linear-gradient(118deg, #ffffff 0%, #c8d8ff 25%, #a78bfa 50%, #ffffff 75%);
+      background-size: 250% 100%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer-name 6s linear infinite;
+    }
+    @keyframes shimmer-name { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+    .hero__desc {
+      font-size: clamp(15px, 1.6vw, 18px); font-weight: 300;
+      color: rgba(255,255,255,0.45); line-height: 1.6; margin-top: 14px;
+      max-width: 520px;
+    }
+    .hero__tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .hero__tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.052); border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px); border-radius: 9999px; padding: 6px 14px;
+      font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.65);
+    }
+    .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+    @media (max-width: 860px) {
+      .hero__inner { flex-direction: column; gap: 32px; text-align: center; }
+      .id-card { width: 100%; max-width: 280px; }
+      .id-card__meta-item { justify-content: center; }
+      .hero__tags, .hero__cta { justify-content: center; }
+      .hero__desc { margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 640px) { .hero { padding: 48px 20px 72px; } }
+
+    /* ── SECTION DIVIDER ── */
+    .hairline { border: none; border-top: 1px solid var(--hairline); margin: 40px 0; }
+    .hairline--dark { border-color: rgba(255,255,255,0.08); }
+
+    /* ── REFLEKSI CARDS ── */
+    .refleksi-grid {
+      display: grid; grid-template-columns: 1fr;
+      gap: 28px; margin-top: 56px; text-align: left;
+    }
+    .refleksi-card {
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      border-radius: 24px; padding: 36px 32px;
+      transition: box-shadow 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .refleksi-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--primary); border-radius: 0 4px 4px 0;
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .refleksi-card.visible::before { transform: scaleY(1); }
+    .refleksi-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); border-color: rgba(0,102,204,0.15); }
+    .refleksi-card__num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 10px;
+    }
+    .refleksi-card__question {
+      font-family: "SF Pro Display", system-ui, -apple-system, sans-serif;
+      font-size: 20px; font-weight: 600; line-height: 1.3;
+      letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px;
+    }
+    .refleksi-card__body {
+      font-size: 16px; color: var(--ink-muted-80);
+      line-height: 1.7; letter-spacing: -0.2px;
+    }
+    .refleksi-card__body p + p { margin-top: 14px; }
+
+    /* ── FILOSOFI ── */
+    .filosofi-wrap {
+      max-width: 760px; margin: 0 auto;
+      text-align: left; margin-top: 56px;
+    }
+    .filosofi-wrap p {
+      font-size: 17px; color: var(--ink-muted-80);
+      line-height: 1.8; letter-spacing: -0.2px;
+    }
+    .filosofi-wrap p + p { margin-top: 22px; }
+    .filosofi-wrap strong { color: var(--ink); font-weight: 600; }
+    .filosofi-wrap em { color: var(--primary); font-style: normal; font-weight: 500; }
+
+    .blockquote {
+      margin-top: 48px;
+      background: var(--surface-tile-1);
+      border-radius: 24px; padding: 52px 44px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .blockquote::before {
+      content: '"'; position: absolute; top: -20px; left: 24px;
+      font-size: 200px; font-family: Georgia, serif; font-weight: 700;
+      color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
+    }
+    .blockquote__text {
+      font-family: "SF Pro Display", system-ui, sans-serif;
+      font-size: clamp(18px, 2.6vw, 26px); font-weight: 300;
+      line-height: 1.55; color: var(--on-dark); position: relative; z-index: 1;
+    }
+    .blockquote__author { margin-top: 18px; font-size: 14px; color: var(--body-muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0f; padding: 56px 28px 36px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start;
+    }
+    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; gap: 40px; } }
+    .footer-logos { display: flex; flex-direction: column; gap: 20px; }
+    .footer-logos__eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px;
+    }
+    .footer-logo-grid { display: flex; flex-direction: row; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-logo-item { display: flex; align-items: center; justify-content: center; transition: opacity 0.2s, transform 0.2s; }
+    .footer-logo-item:hover { opacity: 0.85; transform: translateY(-2px); }
+    .footer-logo-item__img-wrap { display: flex; align-items: center; justify-content: center; }
+    .footer-logo-item__img-wrap img {
+      height: 72px; width: auto; max-width: 140px;
+      object-fit: contain; display: block;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+    }
+    .footer-logo-item--wide .footer-logo-item__img-wrap img { height: 56px; max-width: 180px; }
+    .footer-right { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    @media (max-width: 480px) { .footer-right { grid-template-columns: 1fr; } }
+    .footer-col__title {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 14px;
+    }
+    .footer-col__links { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .footer-col__links a { font-size: 14px; line-height: 2.2; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    .footer-col__links a:hover { color: #fff; }
+    .footer-legal {
+      max-width: 1100px; margin: 40px auto 0; padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .fine-print { font-size: 12px; line-height: 1.0; letter-spacing: -0.12px; color: rgba(255,255,255,0.3); }
+
+    /* ── BACK TO TOP ── */
+    .back-top {
+      position: fixed; bottom: 32px; right: 24px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(29,29,31,0.8); backdrop-filter: blur(10px);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; text-decoration: none; z-index: 800;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.3s, transform 0.3s var(--ease-spring);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .back-top.show { opacity: 1; transform: translateY(0); }
+    .back-top:hover { background: rgba(29,29,31,1); transform: translateY(-3px); }
+
+    /* ── READ PROGRESS ── */
+    .read-progress { position: fixed; top: 68px; left: 0; right: 0; height: 2px; background: transparent; z-index: 999; }
+    .read-progress__fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.1s linear; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="badge">Coming Soon</div>
-    <h1>E-Portfolio 2</h1>
-    <p>Halaman ini sedang dalam pengembangan.<br>Kembali ke portfolio pertama untuk melihat artefak PPL.</p>
-    <a href="../eporto1/">← Kembali ke E-Portfolio 1</a>
-  </div>
+
+  <div class="read-progress"><div class="read-progress__fill" id="progressFill"></div></div>
+  <a href="#" class="back-top" id="backTop">↑</a>
+
+  <!-- ── NAV ── -->
+  <nav class="global-nav" id="globalNav">
+    <a class="global-nav__brand" href="#">E-Portfolio 2</a>
+    <span class="global-nav__divider" aria-hidden="true"></span>
+    <ul class="global-nav__links">
+      <li><a href="#refleksi">Refleksi Akhir</a></li>
+      <li><a href="#filosofi">Filosofi Mengajar</a></li>
+      <li><a class="btn-pill btn-pill--sm" href="../eporto1/">E-Portfolio 1</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════════════════════════════
+       HERO
+  ═════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__mesh"></div>
+    <div class="hero__inner">
+
+      <!-- Identity card -->
+      <div class="id-card"
+           style="opacity:0;transform:translateX(-32px) scale(0.96);transition:opacity 0.9s 0.1s var(--ease-out),transform 0.9s 0.1s var(--ease-spring);"
+           id="heroCard">
+        <div class="id-card__avatar">MF</div>
+        <div class="id-card__name">Muhammad Fadhil Hisyam</div>
+        <div class="id-card__role">Calon Guru Informatika · PPG Prajabatan</div>
+        <div class="id-card__rule"></div>
+        <div class="id-card__meta">
+          <div class="id-card__meta-item">
+            <span class="id-card__meta-icon">📍</span>
+            Makassar, Sulawesi Selatan
+          </div>
+          <div class="id-card__meta-item">
+            <span class="id-card__meta-icon">🏫</span>
+            SMK Negeri 10 Makassar
+          </div>
+          <div class="id-card__meta-item">
+            <span class="id-card__meta-icon">🎓</span>
+            Universitas Islam Makassar
+          </div>
+          <div class="id-card__meta-item">
+            <span class="id-card__meta-icon">🪪</span>
+            NIM: 25086085019
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="hero__text"
+           style="opacity:0;transform:translateY(24px);transition:opacity 0.9s 0.28s var(--ease-out),transform 0.9s 0.28s var(--ease-out);"
+           id="heroText">
+        <p class="hero__eyebrow">E-Portfolio 2 · PPG Prajabatan 2026</p>
+        <h1 class="hero__title">Refleksi &amp;<br>Filosofi Mengajar</h1>
+        <p class="hero__desc">
+          Merumuskan prinsip dan nilai sebagai guru—sebuah refleksi akhir dari perjalanan PPL Terbimbing di SMK Negeri 10 Makassar.
+        </p>
+        <div class="hero__tags">
+          <span class="hero__tag">💡 Refleksi PPL</span>
+          <span class="hero__tag">📖 Filosofi Mengajar</span>
+          <span class="hero__tag">🌱 PPG Prajabatan 2026</span>
+        </div>
+        <div class="hero__cta">
+          <a href="#refleksi" class="btn-pill">Baca Refleksi</a>
+          <a href="#filosofi" class="btn-pill btn-pill--ghost"
+             style="color:var(--primary-on-dark);border-color:rgba(41,151,255,0.4);">
+            Filosofi Mengajar
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       01 · REFLEKSI AKHIR PPL
+  ═════════════════════════════════════ -->
+  <section class="tile tile--parch" id="refleksi">
+    <div class="tile__inner">
+      <p class="eyebrow reveal">01 · Refleksi Akhir</p>
+      <h2 class="display-lg reveal d1">Praktik Pengalaman<br>Lapangan Terbimbing.</h2>
+      <p class="lead mt-lg reveal d2" style="max-width:640px;margin-left:auto;margin-right:auto;">
+        Analisis mendalam atas pengalaman, tantangan, dan umpan balik yang membentuk perjalanan saya sebagai calon guru profesional.
+      </p>
+
+      <div class="refleksi-grid">
+
+        <!-- Pertanyaan 1 -->
+        <div class="refleksi-card reveal d1">
+          <div class="refleksi-card__num">Pertanyaan 01</div>
+          <div class="refleksi-card__question">
+            Apa yang telah saya pelajari sebagai peserta PPG calon guru selama tahapan PPL Terbimbing dari awal hingga akhir?
+          </div>
+          <div class="refleksi-card__body">
+            <p>
+              PPL Terbimbing mengubah cara saya memandang profesi guru secara mendasar. Jika sebelumnya saya membayangkan mengajar sebagai aktivitas menyampaikan informasi, kini saya memahaminya sebagai proses merancang pengalaman belajar yang bermakna. Dari siklus pertama hingga ketiga, saya belajar bahwa perangkat pembelajaran yang baik bukan sekadar dokumen administratif—ia adalah peta yang menuntun setiap siswa menuju pemahaman.
+            </p>
+            <p>
+              Saya juga belajar tentang pentingnya <strong>membaca ruang kelas</strong>: mengenali kapan siswa mulai kehilangan fokus, kapan penjelasan perlu diulang dengan analogi berbeda, dan kapan memberi ruang diam agar mereka memproses sendiri. Keterampilan ini tidak datang dari teori semata, melainkan dari ratusan menit berdiri di depan kelas dan mengamati reaksi nyata siswa. Setiap siklus memberikan lapisan pembelajaran baru—dari pengelolaan waktu, diferensiasi instruksi, hingga cara memberikan umpan balik yang memotivasi, bukan mematahkan semangat.
+            </p>
+            <p>
+              Pelajaran yang paling berharga adalah bahwa <strong>ketidaksempurnaan adalah bagian dari proses</strong>. Setiap pertemuan yang tidak berjalan sesuai rencana adalah data berharga untuk siklus berikutnya. PPL Terbimbing mengajarkan saya untuk menjadi praktisi reflektif—seseorang yang terus mempertanyakan dan memperbaiki praktiknya sendiri.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pertanyaan 2 -->
+        <div class="refleksi-card reveal d2">
+          <div class="refleksi-card__num">Pertanyaan 02</div>
+          <div class="refleksi-card__question">
+            Apakah terdapat pengalaman yang menantang dan bagaimana solusi dari permasalahan tersebut?
+          </div>
+          <div class="refleksi-card__body">
+            <p>
+              Tantangan paling signifikan yang saya hadapi adalah <strong>heterogenitas kemampuan awal siswa</strong>. Dalam satu kelas yang sama, terdapat siswa yang telah familiar dengan konsep informatika dasar melalui eksplorasi mandiri, sementara sebagian lainnya belum pernah berinteraksi secara mendalam dengan perangkat digital di luar penggunaan media sosial. Kondisi ini menciptakan jurang pemahaman yang menyulitkan jika saya hanya menggunakan satu pendekatan instruksional.
+            </p>
+            <p>
+              Solusi yang saya kembangkan adalah menerapkan <strong>pembelajaran berdiferensiasi</strong> secara bertahap. Pada siklus kedua, saya mulai merancang LKPD dengan tiga level kesulitan—eksplorasi dasar, penerapan, dan pengembangan—sehingga setiap siswa memiliki titik masuk yang sesuai. Saya juga memanfaatkan strategi peer-learning: siswa dengan pemahaman lebih tinggi diundang menjadi "mentor sebaya" dalam kelompok, yang ternyata justru memperdalam pemahaman mereka sendiri.
+            </p>
+            <p>
+              Tantangan kedua adalah <strong>manajemen waktu dalam sesi praktik</strong>. Kegiatan berbasis praktik kerap melebihi alokasi waktu yang direncanakan. Solusinya adalah membangun rutinitas yang jelas di awal kelas: penanda waktu visual di papan tulis, instruksi bertahap yang tertulis, dan sinyal transisi yang konsisten. Setelah dua siklus, siswa mulai menginternalisasi ritme kelas dan transisi antar kegiatan menjadi lebih efisien.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pertanyaan 3 -->
+        <div class="refleksi-card reveal d3">
+          <div class="refleksi-card__num">Pertanyaan 03</div>
+          <div class="refleksi-card__question">
+            Apa umpan balik konstruktif yang diberikan dalam diskusi refleksi akhir sebagai bentuk perbaikan menuju PPL Mandiri?
+          </div>
+          <div class="refleksi-card__body">
+            <p>
+              Guru Pamong, Drs. H. Rusdi Palemmai, M.Pd., memberikan catatan yang sangat berharga: saya perlu <strong>memperkuat fase apersepsi</strong>. Beliau mengamati bahwa pembukaan pembelajaran saya kadang terlalu cepat berpindah ke inti materi tanpa cukup membangun koneksi antara pengetahuan awal siswa dengan konsep baru yang akan dipelajari. Saran beliau adalah menyediakan minimal 5–7 menit untuk pertanyaan pemantik yang benar-benar membangkitkan rasa ingin tahu.
+            </p>
+            <p>
+              DPL, Nur Alamsyah, S.Pd., M.Pd., menyoroti pentingnya <strong>dokumentasi asesmen formatif yang lebih sistematis</strong>. Beliau mengapresiasi intensitas interaksi saya dengan siswa selama proses pembelajaran, namun mengingatkan bahwa data observasi informal perlu direkam secara lebih terstruktur agar dapat menjadi basis pengambilan keputusan instruksional yang akurat—terutama saat merespons kebutuhan belajar individual.
+            </p>
+            <p>
+              Dua umpan balik ini saling melengkapi dan akan menjadi <strong>fokus pengembangan utama di PPL Mandiri</strong>: merancang pembukaan pembelajaran yang lebih kuat secara konseptual, dan membangun sistem pencatatan asesmen formatif yang ringkas namun informatif. Saya berencana mengembangkan lembar observasi singkat yang dapat diisi selama aktivitas kelas berlangsung tanpa mengganggu ritme pembelajaran.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       02 · FILOSOFI MENGAJAR
+  ═════════════════════════════════════ -->
+  <section class="tile tile--light" id="filosofi">
+    <div class="tile__inner">
+      <p class="eyebrow reveal">02 · Filosofi Mengajar</p>
+      <h2 class="display-lg reveal d1">Prinsip, Keyakinan,<br>dan Nilai Mengajar.</h2>
+      <p class="lead mt-lg reveal d2" style="max-width:640px;margin-left:auto;margin-right:auto;">
+        Ideologi yang mendasari setiap keputusan instruksional saya selama proses pembelajaran terbimbing.
+      </p>
+
+      <div class="filosofi-wrap reveal d2">
+        <p>
+          Filosofi mengajar saya berakar pada keyakinan bahwa <em>setiap siswa adalah subjek aktif dalam proses konstruksi pengetahuannya sendiri</em>. Pandangan ini sejalan dengan gagasan konstruktivisme Piaget yang menyatakan bahwa pengetahuan tidak dapat ditransfer begitu saja dari guru ke siswa—ia harus dibangun melalui pengalaman, eksplorasi, dan refleksi. Konsekuensinya, saya memandang peran guru bukan sebagai "sumber kebenaran" yang menuangkan informasi, melainkan sebagai <strong>perancang lingkungan belajar</strong> yang memungkinkan siswa menemukan pemahaman secara autentik. Di ruang kelas informatika, ini berarti merancang situasi belajar di mana siswa menghadapi masalah nyata, bereksperimen dengan solusi, dan belajar dari kegagalan mereka sendiri.
+        </p>
+        <p>
+          Vygotsky mengajarkan saya tentang <em>Zone of Proximal Development</em>—zona di antara apa yang dapat dilakukan siswa secara mandiri dan apa yang dapat mereka capai dengan bimbingan yang tepat. Filosofi ini mendorong saya untuk selalu mengkalibrasi tantangan: terlalu mudah akan membosankan, terlalu sulit akan melemahkan kepercayaan diri. Saya percaya bahwa tugas utama seorang guru adalah terus-menerus <strong>membangun jembatan scaffolding</strong> yang membantu siswa melintasi zona tersebut—melalui pertanyaan yang mengarahkan, contoh yang kontekstual, dan ruang yang aman untuk mencoba. Ketika scaffolding bekerja dengan baik, siswa tidak menyadari bahwa mereka telah melakukan sesuatu yang sebelumnya tampak mustahil.
+        </p>
+        <p>
+          Saya juga menemukan resonansi mendalam dalam pemikiran Paulo Freire yang mengkritik "pendidikan gaya bank"—model di mana siswa diperlakukan sebagai wadah kosong yang diisi oleh guru. Freire mendorong <em>pendidikan dialogis</em>: guru dan siswa sama-sama belajar dalam proses yang saling membangun. Dalam konteks SMK, filosofi ini memiliki makna konkret: <strong>pengalaman dan intuisi teknis siswa harus dihargai sebagai pengetahuan yang valid</strong>. Seorang siswa yang di rumah sudah terbiasa memperbaiki perangkat keras memiliki pengetahuan prosedural yang berharga—tugas saya adalah mengaitkannya dengan kerangka konseptual yang lebih luas, bukan mengabaikannya demi mengikuti urutan kurikulum yang kaku.
+        </p>
+        <p>
+          Pada akhirnya, <strong>filosofi mengajar saya adalah tentang kepercayaan</strong>. Kepercayaan bahwa setiap siswa yang duduk di depan saya menyimpan potensi yang belum sepenuhnya terlihat—bahkan oleh dirinya sendiri. Kepercayaan bahwa iklim kelas yang aman secara psikologis, di mana pertanyaan "bodoh" tidak ada dan kesalahan dipandang sebagai langkah menuju pemahaman, adalah prasyarat utama belajar yang bermakna. John Dewey menulis bahwa pendidikan bukan persiapan untuk kehidupan—ia <em>adalah</em> kehidupan itu sendiri. Saya ingin setiap jam pelajaran yang saya pimpin menjadi pengalaman hidup yang meninggalkan bekas: rasa ingin tahu yang terpicu, kepercayaan diri yang tumbuh, atau sebuah koneksi antara dunia kelas dan dunia di luar tembok sekolah.
+        </p>
+      </div>
+
+      <div class="blockquote reveal-scale mt-xxl">
+        <p class="blockquote__text">
+          "Mengajar adalah tindakan kepercayaan—kepercayaan bahwa setiap siswa menyimpan kemampuan yang belum pernah terlihat bahkan oleh dirinya sendiri, dan tugas kita adalah menciptakan ruang di mana kemampuan itu akhirnya menemukan jalannya."
+        </p>
+        <p class="blockquote__author">— Muhammad Fadhil Hisyam</p>
+      </div>
+
+      <div class="cta-row mt-xxl reveal">
+        <a href="#refleksi" class="btn-pill btn-pill--ghost">← Kembali ke Refleksi</a>
+        <a href="../eporto1/" class="btn-pill">E-Portfolio 1</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       FOOTER
+  ═════════════════════════════════════ -->
+  <footer id="kontak">
+    <div class="footer-inner">
+
+      <div class="footer-logos">
+        <p class="footer-logos__eyebrow">Institusi &amp; Program</p>
+        <div class="footer-logo-grid">
+          <div class="footer-logo-item footer-logo-item--wide">
+            <div class="footer-logo-item__img-wrap">
+              <img src="../eporto1/assets/logos/kemendikdasmen.png" alt="Logo Kemendikdasmen" loading="lazy">
+            </div>
+          </div>
+          <div class="footer-logo-item">
+            <div class="footer-logo-item__img-wrap">
+              <img src="../eporto1/assets/logos/ppg.svg" alt="Logo PPG Prajabatan" loading="lazy">
+            </div>
+          </div>
+          <div class="footer-logo-item">
+            <div class="footer-logo-item__img-wrap">
+              <img src="../eporto1/assets/logos/uim.svg" alt="Logo Universitas Islam Makassar" loading="lazy">
+            </div>
+          </div>
+          <div class="footer-logo-item">
+            <div class="footer-logo-item__img-wrap">
+              <img src="../eporto1/assets/logos/smk10.svg" alt="Logo SMK Negeri 10 Makassar" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <div>
+          <p class="footer-col__title">E-Portfolio</p>
+          <ul class="footer-col__links">
+            <li><a href="#refleksi">Refleksi Akhir PPL</a></li>
+            <li><a href="#filosofi">Filosofi Mengajar</a></li>
+            <li><a href="../eporto1/">E-Portfolio 1</a></li>
+            <li><a href="../">Halaman Utama</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-col__title">Kontak</p>
+          <ul class="footer-col__links">
+            <li><a href="mailto:mfhisyam5@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-legal">
+      <p class="fine-print">© 2026 Muhammad Fadhil Hisyam · E-Portfolio PPG Prajabatan</p>
+    </div>
+  </footer>
+
+  <script>
+  /* ── HERO ENTRANCE ── */
+  window.addEventListener('load', () => {
+    const card = document.getElementById('heroCard');
+    const text = document.getElementById('heroText');
+    if (card) { card.style.opacity = '1'; card.style.transform = 'none'; }
+    setTimeout(() => { if (text) { text.style.opacity = '1'; text.style.transform = 'none'; } }, 160);
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .refleksi-card')
+    .forEach(el => revealObs.observe(el));
+
+  /* ── READ PROGRESS ── */
+  const progressFill = document.getElementById('progressFill');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progressFill.style.width = (window.scrollY / docH * 100) + '%';
+  }, { passive: true });
+
+  /* ── BACK TO TOP ── */
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('show', window.scrollY > 400);
+  }, { passive: true });
+  backTop.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  /* ── NAV SOLID ── */
+  const nav = document.getElementById('globalNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 80);
+  }, { passive: true });
+  </script>
 </body>
 </html>
