@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1a5ca8"/>
+      <stop offset="100%" stop-color="#0a2d5e"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="98" fill="url(#bg)" stroke="#c9a84c" stroke-width="4"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Torch / graduation symbol -->
+  <rect x="93" y="55" width="14" height="50" rx="3" fill="#c9a84c"/>
+  <ellipse cx="100" cy="52" rx="12" ry="8" fill="#f5d76e"/>
+  <ellipse cx="100" cy="52" rx="7" ry="5" fill="#e8b84b"/>
+  <!-- Laurel -->
+  <path d="M68 115 Q60 100 65 85 Q72 90 74 105Z" fill="#c9a84c"/>
+  <path d="M132 115 Q140 100 135 85 Q128 90 126 105Z" fill="#c9a84c"/>
+  <path d="M58 120 Q52 106 58 93 Q65 98 66 112Z" fill="#9a7b30"/>
+  <path d="M142 120 Q148 106 142 93 Q135 98 134 112Z" fill="#9a7b30"/>
+  <!-- Base text -->
+  <rect x="68" y="115" width="64" height="3" rx="1" fill="#c9a84c"/>
+  <text x="100" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f5e6c0" letter-spacing="0.5">PPG</text>
+  <text x="100" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#c9a84c" letter-spacing="0.3">PRAJABATAN</text>
+  <text x="100" y="168" text-anchor="middle" font-family="Arial, sans-serif" font-size="7" fill="#9ab8e0">2024</text>
+</svg>
