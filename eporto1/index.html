@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Portfolio 1 — Muhammad Fadhil Hisyam</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logos/badge-ppl.svg">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -115,14 +116,12 @@
       align-items: center;
       gap: 10px;
     }
-    .global-nav__brand::before {
-      content: '';
-      display: block;
-      width: 8px; height: 8px;
+    .global-nav__brand-badge {
+      width: 34px; height: 34px;
       border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 8px rgba(0,102,204,0.8);
       flex-shrink: 0;
+      display: block;
+      filter: drop-shadow(0 0 6px rgba(42,157,143,0.55));
     }
     .global-nav__divider {
       width: 1px;
@@ -1281,7 +1280,10 @@
 
   <!-- ── UNIFIED NAV ── -->
   <nav class="global-nav" id="globalNav">
-    <a class="global-nav__brand" href="#">E-Portfolio 1</a>
+    <a class="global-nav__brand" href="#">
+      <img class="global-nav__brand-badge" src="../assets/logos/badge-ppl.svg" alt="Badge PPL SMKN 10 Makassar">
+      E-Portfolio 1
+    </a>
     <span class="global-nav__divider" aria-hidden="true"></span>
     <ul class="global-nav__links" id="navLinks">
       <li><a href="#profil">Profil</a></li>
