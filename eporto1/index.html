@@ -762,13 +762,12 @@
     ────────────────────────────────────── */
     .artifact-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
       margin-top: 56px;
       text-align: left;
     }
-    @media (max-width: 1024px) { .artifact-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 640px)  { .artifact-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .artifact-grid { grid-template-columns: 1fr; } }
 
     .artifact-card {
       background: var(--canvas);
@@ -810,19 +809,21 @@
 
     .analysis-block {
       background: var(--canvas-parchment);
-      border-radius: 12px;
-      padding: 16px 18px;
+      border-radius: 10px;
+      padding: 12px 14px;
       border-left: 3px solid var(--primary);
     }
+    .analysis-block + .analysis-block { margin-top: 8px; }
     .analysis-block__label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       color: var(--primary);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-    .analysis-block__text { font-size: 13px; color: var(--ink-muted-80); line-height: 1.5; letter-spacing: -0.2px; }
+    .analysis-block__text { font-size: 13px; color: var(--ink-muted-80); line-height: 1.55; letter-spacing: -0.2px; }
+    .artifact-card .artifact-link { margin-top: 4px; }
 
     .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
     .tag {
@@ -1475,45 +1476,177 @@
 
       <div class="artifact-grid">
 
+        <!-- ── ARTEFAK 1: RPP ── -->
         <div class="artifact-card reveal d1">
           <div class="artifact-card__icon">📋</div>
           <div class="artifact-card__type">RPP · Siklus 1–3</div>
           <div class="artifact-card__title">Rencana Pelaksanaan Pembelajaran</div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">⚠ Kendala Penyusunan</div>
+            <div class="analysis-block__text">Pada Siklus 1, penyusunan RPP untuk materi Mail Server menghadapi kendala utama pada estimasi alokasi waktu. Proses <em>dpkg-reconfigure postfix</em> yang terdiri dari delapan tahap dialog jauh melampaui durasi yang direncanakan, sehingga sesi penutupan tidak dapat dilaksanakan. Pada Siklus 2, pembagian alokasi waktu antara fase eksplorasi dan presentasi belum proporsional. Siklus 3 terkendala keterbatasan perangkat laptop sehingga RPP yang semula dirancang untuk praktik simultan harus disesuaikan menjadi sistem rotasi.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">📚 Teori & Konsep Pedagogi</div>
+            <div class="analysis-block__text">RPP dirancang berlandaskan pendekatan <strong>Problem-Based Learning (PBL)</strong> di mana setiap pertemuan diawali dengan masalah autentik yang relevan bagi siswa SMK. Komponen apersepsi mengacu pada teori <strong>Ausubel tentang meaningful learning</strong>—pengetahuan baru dikaitkan secara eksplisit dengan pengalaman digital sehari-hari siswa sebelum memasuki konsep teknis. Alur kegiatan inti mengikuti <strong>pendekatan saintifik 5M</strong> (Mengamati, Menanya, Mencoba, Menalar, Mengomunikasikan).</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">✓ Faktor Keberhasilan</div>
+            <div class="analysis-block__text">Penambahan teknik <em>pause and check</em> pada RPP Siklus 2 dan 3—di mana demonstrasi dihentikan sejenak untuk memastikan seluruh siswa tuntas di setiap langkah—terbukti meningkatkan ketuntasan praktik secara merata. Sistem tutor sebaya yang dicantumkan dalam skenario pembelajaran juga efektif mengurangi antrean pertanyaan kepada guru dan mempercepat penyelesaian praktikum.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">🔄 Perubahan untuk Situasi Berbeda</div>
+            <div class="analysis-block__text">Untuk kelas dengan rasio perangkat 1:1, alokasi waktu fase eksplorasi mandiri dapat diperluas. Untuk kelas dengan koneksi internet terbatas, RPP perlu mengganti aktivitas berbasis cloud (Google Drive, Padlet) dengan alternatif offline. Untuk kelas dengan kemampuan heterogen tinggi, komponen diferensiasi berupa LKPD berlevel perlu dimasukkan secara eksplisit ke dalam langkah-langkah pembelajaran.</div>
+          </div>
+
           <a href="https://drive.google.com/drive/folders/1UTr5fvW2uFuetUrsqTfYqTL8g7Ny0FBr?usp=sharing" target="_blank" rel="noopener" class="artifact-link">Lihat RPP</a>
         </div>
 
+        <!-- ── ARTEFAK 2: MEDIA ── -->
         <div class="artifact-card reveal d2">
           <div class="artifact-card__icon">🎬</div>
-          <div class="artifact-card__type">Media Pembelajaran</div>
+          <div class="artifact-card__type">Media Pembelajaran · Siklus 1–3</div>
           <div class="artifact-card__title">Media & Bahan Ajar</div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">⚠ Kendala Penyusunan</div>
+            <div class="analysis-block__text">Siklus 1 mengungkap kelemahan mendasar: video tutorial tanpa jobsheet bergambar pendamping membuat siswa tidak memiliki referensi mandiri. Ketika video diputar tanpa jeda, siswa yang tertinggal pada langkah konfigurasi <em>netplan</em> yang sensitif indentasi YAML tidak dapat mengejar ketertinggalan secara mandiri. Siklus 2 menghadapi tantangan berbeda: media interaktif seperti Kahoot dan Canva yang sangat menarik justru membuat siswa kehilangan kesadaran terhadap batas waktu.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">📚 Teori & Konsep Pedagogi</div>
+            <div class="analysis-block__text">Pemilihan media mengacu pada <strong>Dale's Cone of Experience</strong>—media dipilih untuk mendorong siswa dari pengalaman abstrak menuju pengalaman langsung. Pada Siklus 2 dan 3, prinsip <strong>Multimedia Learning Theory (Mayer)</strong> diterapkan dengan mengombinasikan teks, visual, dan interaksi langsung. Penggunaan platform seperti Quizizz dan Kahoot selaras dengan teori <strong>gamifikasi dalam pendidikan</strong> yang meningkatkan motivasi intrinsik.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">✓ Faktor Keberhasilan</div>
+            <div class="analysis-block__text">Cheatsheet operator Boolean yang dibagikan melalui Google Drive pada Siklus 2 menjadi panduan mandiri yang efektif—siswa tidak lagi bergantung penuh pada penjelasan guru. Template dokumen Word, spreadsheet Excel, dan slide PowerPoint yang dibagikan di Siklus 3 mempercepat proses onboarding praktik karena siswa tidak perlu membangun dokumen dari nol, sehingga lebih banyak waktu tersedia untuk eksplorasi kreatif.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">🔄 Perubahan untuk Situasi Berbeda</div>
+            <div class="analysis-block__text">Untuk kelas tanpa akses internet, media perlu dikemas dalam bentuk offline (file lokal, LAN sharing). Untuk kelas dengan proyektor beresolusi rendah, bahan ajar visual perlu disederhanakan kontrasnya. Jika platform gamifikasi seperti Kahoot tidak tersedia, kuis tertulis berbasis kartu (card-based quiz) dapat menjadi substitusi yang mempertahankan unsur kompetitif.</div>
+          </div>
+
           <a href="https://drive.google.com/drive/folders/1mLaOd3ZiauxKPVJ--ue47nrFvtMN-SOi?usp=sharing" target="_blank" rel="noopener" class="artifact-link">Lihat Media</a>
         </div>
 
-        <div class="artifact-card reveal d3">
+        <!-- ── ARTEFAK 3: LKPD ── -->
+        <div class="artifact-card reveal d1">
           <div class="artifact-card__icon">📝</div>
-          <div class="artifact-card__type">LKPD</div>
+          <div class="artifact-card__type">LKPD · Siklus 1–3</div>
           <div class="artifact-card__title">Lembar Kerja Peserta Didik</div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">⚠ Kendala Penyusunan</div>
+            <div class="analysis-block__text">Siklus 1 tidak memiliki LKPD bergambar yang memadai; hanya tersedia instruksi verbal dan tayangan video, sehingga siswa tidak punya rujukan tertulis saat menghadapi kendala teknis. Pada Siklus 2, LKPD "Misi Detektif Digital" dirancang dengan lima tahapan, namun fase <em>Challenge Round</em> tidak dapat diselesaikan karena estimasi waktu yang kurang tepat. Siklus 3 menemui kendala pada LKPD analisis yang belum cukup menantang sebagai pengisi waktu tunggu rotasi laptop.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">📚 Teori & Konsep Pedagogi</div>
+            <div class="analysis-block__text">LKPD dirancang berdasarkan prinsip <strong>Inquiry-Based Learning</strong>—siswa didorong menemukan jawaban melalui eksplorasi terstruktur, bukan menerima informasi secara pasif. Struktur misi bertingkat pada LKPD Siklus 2 mencerminkan konsep <strong>Zone of Proximal Development (Vygotsky)</strong>: dimulai dari tugas yang dapat dikerjakan mandiri, kemudian meningkat ke level yang membutuhkan kolaborasi dan bimbingan. Unsur <strong>gamifikasi</strong> (identitas "Detektif Digital") meningkatkan motivasi intrinsik siswa.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">✓ Faktor Keberhasilan</div>
+            <div class="analysis-block__text">LKPD Siklus 2 dengan pendekatan berbasis misi terbukti paling efektif: siswa bekerja lebih mandiri, semangat kolaborasi antarteman meningkat, dan siswa yang lebih cepat secara sukarela membantu rekannya. Gallery walk digital menggunakan Padlet sebagai tindak lanjut LKPD menciptakan suasana presentasi yang kolaboratif dan menyenangkan tanpa tekanan formal.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">🔄 Perubahan untuk Situasi Berbeda</div>
+            <div class="analysis-block__text">Untuk kelas dengan kemampuan heterogen, LKPD perlu dirancang dalam tiga level kesulitan (eksplorasi dasar, penerapan, pengembangan) agar setiap siswa memiliki titik masuk yang sesuai. Untuk kelas yang belum terbiasa dengan literasi digital, LKPD perlu dilengkapi tangkapan layar langkah demi langkah. Unsur gamifikasi dapat dimodifikasi sesuai konteks—misalnya "Misi Teknisi Jaringan" untuk kelas TKJ.</div>
+          </div>
+
           <a href="https://drive.google.com/drive/folders/1dYzDeDiOAlt8-WnxzQcFuiXLnVpkGHb1?usp=sharing" target="_blank" rel="noopener" class="artifact-link">Lihat LKPD</a>
         </div>
 
-        <div class="artifact-card reveal d4">
+        <!-- ── ARTEFAK 4: SAMPEL HASIL KERJA ── -->
+        <div class="artifact-card reveal d2">
           <div class="artifact-card__icon">🗂️</div>
-          <div class="artifact-card__type">Contoh Hasil Kerja Siswa</div>
+          <div class="artifact-card__type">Contoh Hasil Kerja Siswa · Siklus 1–3</div>
           <div class="artifact-card__title">Portofolio & Sampel Hasil Kerja Siswa</div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">⚠ Kendala Penyusunan</div>
+            <div class="analysis-block__text">Pengumpulan sampel hasil kerja siswa di Siklus 1 terkendala oleh tidak tuntasnya praktikum—banyak siswa belum berhasil menyelesaikan konfigurasi mail server sehingga produk akhir yang terdokumentasi sangat terbatas. Pada Siklus 2, sesi presentasi CV digital tidak dapat dilaksanakan oleh seluruh kelompok karena keterbatasan waktu, sehingga tidak semua karya terdokumentasi secara merata. Siklus 3 terkendala oleh keterbatasan waktu praktik akibat rotasi laptop yang belum terstruktur.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">📚 Teori & Konsep Pedagogi</div>
+            <div class="analysis-block__text">Dokumentasi sampel hasil kerja siswa merupakan bagian dari pendekatan <strong>asesmen autentik</strong> (Wiggins, 1998) yang menilai kemampuan siswa melalui produk nyata, bukan sekadar tes tertulis. Koleksi karya dalam portofolio juga mencerminkan prinsip <strong>assessment for learning</strong>—dokumentasi digunakan sebagai cermin bagi siswa untuk merefleksikan perkembangan kemampuannya sendiri sepanjang siklus.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">✓ Faktor Keberhasilan</div>
+            <div class="analysis-block__text">CV digital menggunakan Canva (Siklus 2) dan slide presentasi PowerPoint (Siklus 3) menghasilkan produk yang secara visual kuat dan bermakna bagi siswa. Sesi apresiasi antarteman saat presentasi di Siklus 3 menciptakan ekspresi kepuasan dan kebanggaan yang menjadi momen belajar berkesan—indikator bahwa proses produksi karya memberikan dampak afektif yang positif.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">🔄 Perubahan untuk Situasi Berbeda</div>
+            <div class="analysis-block__text">Untuk kelas yang lebih besar, sistem galeri digital (Padlet atau Google Sites milik siswa) dapat menggantikan presentasi tatap muka, memungkinkan semua karya dipajang dan diberi umpan balik oleh teman sebaya secara asinkron. Untuk kelas dengan keterbatasan perangkat, dokumentasi dapat dilakukan dengan foto menggunakan HP siswa yang kemudian dikompilasi dalam folder Google Drive bersama.</div>
+          </div>
+
           <a href="https://drive.google.com/drive/folders/1dYzDeDiOAlt8-WnxzQcFuiXLnVpkGHb1?usp=sharing" target="_blank" rel="noopener" class="artifact-link">Lihat Sampel</a>
         </div>
 
-        <div class="artifact-card reveal d5">
+        <!-- ── ARTEFAK 5: INSTRUMEN PENILAIAN ── -->
+        <div class="artifact-card reveal d1">
           <div class="artifact-card__icon">📊</div>
-          <div class="artifact-card__type">Instrumen Penilaian</div>
+          <div class="artifact-card__type">Instrumen Penilaian · Siklus 1–3</div>
           <div class="artifact-card__title">Rubrik & Instrumen Penilaian</div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">⚠ Kendala Penyusunan</div>
+            <div class="analysis-block__text">Penyusunan instrumen penilaian menghadapi tantangan dalam hal pelaksanaan asesmen formatif real-time. Saat guru harus aktif memfasilitasi praktik teknis dan menjawab pertanyaan siswa secara bersamaan, pencatatan observasi individual menjadi sulit dilakukan secara sistematis. Pada Siklus 1, penilaian proses praktikum tidak terdokumentasi dengan baik karena perhatian guru terlalu tersita oleh penanganan kendala teknis.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">📚 Teori & Konsep Pedagogi</div>
+            <div class="analysis-block__text">Instrumen penilaian dirancang mengacu pada prinsip <strong>asesmen formatif berkelanjutan</strong> (Black & Wiliam) yang menekankan umpan balik sebagai alat perbaikan, bukan sekadar angka akhir. Rubrik penilaian produk menggunakan pendekatan <strong>analytic rubric</strong> yang memisahkan dimensi penilaian (konten, tampilan, fungsionalitas) agar siswa memahami kriteria keberhasilan secara spesifik dan dapat mengarahkan upaya perbaikannya sendiri.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">✓ Faktor Keberhasilan</div>
+            <div class="analysis-block__text">Platform Quizizz pada Siklus 2 menjadi instrumen asesmen formatif paling efektif: data kemampuan awal siswa tersedia secara real-time tanpa memerlukan pencatatan manual guru. Sistem ini memungkinkan penyesuaian penekanan materi secara langsung berdasarkan pola jawaban yang terlihat dari dasbor Quizizz. Transparansi kriteria rubrik kepada siswa di awal sesi juga terbukti meningkatkan kualitas produk akhir.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">🔄 Perubahan untuk Situasi Berbeda</div>
+            <div class="analysis-block__text">Untuk kelas dengan jumlah siswa lebih besar, <strong>peer assessment</strong> dapat diintegrasikan ke dalam rubrik sehingga beban penilaian terdistribusi. Untuk konteks PPL Mandiri, instrumen observasi singkat yang dapat diisi selama aktivitas berlangsung perlu dikembangkan—misalnya checklist digital di HP guru—agar asesmen formatif tidak mengganggu ritme fasilitasi pembelajaran.</div>
+          </div>
+
           <a href="https://drive.google.com/drive/folders/1rBa023TXUSRlend7dcnBp9Es2Zixvkxj?usp=sharing" target="_blank" rel="noopener" class="artifact-link">Lihat Instrumen</a>
         </div>
 
-        <div class="artifact-card reveal d6">
+        <!-- ── ARTEFAK 6: VIDEO ── -->
+        <div class="artifact-card reveal d2">
           <div class="artifact-card__icon">🎥</div>
-          <div class="artifact-card__type">Rekaman Pembelajaran</div>
+          <div class="artifact-card__type">Rekaman Pembelajaran · Siklus 1–3</div>
           <div class="artifact-card__title">Video Praktik Mengajar</div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">⚠ Kendala Penyusunan</div>
+            <div class="analysis-block__text">Kendala utama dalam dokumentasi video adalah cakupan rekaman yang terbatas. Kamera statis tidak selalu menangkap dinamika kelas secara menyeluruh, terutama saat siswa bekerja mandiri dalam kelompok. Siklus 1 tidak terdokumentasi secara optimal karena perhatian terfokus pada penanganan kendala teknis. Aspek non-verbal seperti ekspresi kebingungan siswa atau dinamika interaksi kelompok sulit terekam secara konsisten.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">📚 Teori & Konsep Pedagogi</div>
+            <div class="analysis-block__text">Pemanfaatan video praktik mengajar berakar pada konsep <strong>Reflective Practice (Schön, 1983)</strong>—guru sebagai praktisi yang menganalisis tindakannya sendiri untuk terus berkembang. Pendekatan ini juga sejalan dengan metodologi <strong>Lesson Study</strong> yang mendorong guru mengamati dan mendiskusikan proses pembelajaran secara kolaboratif untuk mengidentifikasi area perbaikan yang tidak terdeteksi saat mengajar berlangsung.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">✓ Faktor Keberhasilan</div>
+            <div class="analysis-block__text">Menonton ulang rekaman video antarsiklus membantu mengidentifikasi pola yang tidak disadari saat mengajar—seperti kecenderungan berpindah terlalu cepat ke langkah berikutnya tanpa memastikan ketuntasan siswa. Umpan balik dari Guru Pamong yang dikombinasikan dengan observasi mandiri melalui video menciptakan siklus perbaikan yang lebih objektif dan terukur dibandingkan hanya mengandalkan memori subjektif.</div>
+          </div>
+
+          <div class="analysis-block">
+            <div class="analysis-block__label">🔄 Perubahan untuk Situasi Berbeda</div>
+            <div class="analysis-block__text">Untuk konteks PPL Mandiri, video praktik dapat digunakan sebagai bahan diskusi dalam komunitas belajar profesional (CoP) bersama rekan guru. Untuk kelas yang lebih dinamis, penggunaan dua sudut rekaman (kamera depan + kamera kelompok) akan memberikan gambaran yang lebih komprehensif. Teknologi screen recording juga dapat ditambahkan untuk mendokumentasikan proses demonstrasi berbasis layar secara lebih detail.</div>
+          </div>
+
           <a href="https://drive.google.com/drive/folders/1vpPv6uw6I5MG0YVmchqiiaeMQizAA7fv?usp=sharing" target="_blank" rel="noopener" class="artifact-link">Lihat Video</a>
         </div>
 
