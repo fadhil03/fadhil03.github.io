@@ -1,0 +1,164 @@
+{
+  "identifikasiDiri": {
+    "visiPendidikanIndonesia": "",
+    "visiCalonGuru": "",
+    "langkahKonkret": ""
+  },
+  "refleksiMataKuliah": [
+    {
+      "id": "filosofi-pendidikan-dan-pendidikan-nilai",
+      "pertemuanKe": "II",
+      "semester": 1,
+      "namaMataKuliah": "Filosofi Pendidikan dan Pendidikan Nilai",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "peserta-didik-dan-pemahamannya",
+      "pertemuanKe": "III",
+      "semester": 1,
+      "namaMataKuliah": "Peserta Didik dan Pemahamannya",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "pembelajaran-mendalam-dan-asesmen-dasar",
+      "pertemuanKe": "IV",
+      "semester": 1,
+      "namaMataKuliah": "Pembelajaran Mendalam dan Asesmen Dasar",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "ppl-terbimbing",
+      "pertemuanKe": "V",
+      "semester": 1,
+      "namaMataKuliah": "Praktik Pengalaman Lapangan (PPL) Terbimbing",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "pola-pikir-bertumbuh",
+      "pertemuanKe": "VI",
+      "semester": 1,
+      "namaMataKuliah": "Pola Pikir Bertumbuh (Growth Mindset)",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "kewirausahaan",
+      "pertemuanKe": "VII",
+      "semester": 1,
+      "namaMataKuliah": "Kewirausahaan",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "pembelajaran-sosial-emosional",
+      "pertemuanKe": "VIII",
+      "semester": 2,
+      "namaMataKuliah": "Pembelajaran Sosial Emosional",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "pembelajaran-mendalam-dan-asesmen-lanjut",
+      "pertemuanKe": "IX",
+      "semester": 2,
+      "namaMataKuliah": "Pembelajaran Mendalam dan Asesmen Lanjut",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "ppl-mandiri",
+      "pertemuanKe": "X",
+      "semester": 2,
+      "namaMataKuliah": "Praktik Pengalaman Lapangan (PPL) Mandiri",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "projek-kepemimpinan",
+      "pertemuanKe": "XI",
+      "semester": 2,
+      "namaMataKuliah": "Projek Kepemimpinan",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    },
+    {
+      "id": "mata-kuliah-pilihan-selektif-elektif",
+      "pertemuanKe": "XII",
+      "semester": 2,
+      "namaMataKuliah": "Mata Kuliah Pilihan Selektif/Elektif",
+      "connection": "",
+      "challenge": "",
+      "concept": "",
+      "change": "",
+      "analisisArtefak": "",
+      "kaitanPraktis": "",
+      "tanggalDiperbarui": ""
+    }
+  ],
+  "refleksiKeseluruhan": {
+    "pandanganPendidikanIndonesia": "",
+    "upayaGuruProfesional": "",
+    "rencanaTindakLanjut": ["", "", ""]
+  },
+  "karyaInovasi": {
+    "namaKarya": "",
+    "sasaranInovasi": "",
+    "gagasanRiset": "",
+    "rancanganImplementasi": "",
+    "evaluasi": ""
+  }
+}

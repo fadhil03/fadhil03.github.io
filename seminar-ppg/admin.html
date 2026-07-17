@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin — Portofolio Digital Seminar PPG</title>
+  <link rel="icon" type="image/png" href="../assets/logos/logo-ppl.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="global-nav solid">
+    <a class="global-nav__brand" href="#">
+      <img class="global-nav__brand-badge" src="../assets/logos/logo-ppl.png" alt="Lambang PPG Prajabatan">
+      Admin Portofolio
+    </a>
+    <ul class="global-nav__links">
+      <li><a href="index.html">Lihat Halaman Publik ↗</a></li>
+    </ul>
+  </nav>
+
+  <div class="admin-shell">
+    <div class="admin-inner">
+
+      <div class="admin-header">
+        <h1>Kelola Konten Portofolio</h1>
+        <p>Perubahan disimpan langsung ke <code>data/portofolio.json</code> di repositori GitHub melalui GitHub REST API — tidak ada server/database tambahan.</p>
+      </div>
+
+      <div class="warning-banner">
+        <span class="warning-banner__icon">⚠️</span>
+        <span>
+          <strong>Jangan gunakan token ini di komputer publik/bersama.</strong> Token Personal Access Token (PAT) hanya disimpan di <code>localStorage</code> peramban Anda saat ini dan tidak pernah dikirim ke tempat lain selain GitHub API. Selalu klik <strong>Logout</strong> setelah selesai bila memakai perangkat bersama.
+        </span>
+      </div>
+
+      <!-- ── TOKEN PANEL ── -->
+      <div class="panel">
+        <div class="panel__title">Autentikasi GitHub</div>
+        <div class="panel__desc">
+          Tempel GitHub Personal Access Token (fine-grained, scope <strong>Contents: Read and write</strong> pada repo <code>fadhil03/fadhil03.github.io</code>).
+        </div>
+        <div class="token-row">
+          <input type="password" id="tokenInput" placeholder="github_pat_xxxxxxxxxxxxxxxx" autocomplete="off">
+          <button class="btn-pill btn-pill--sm" id="btnConnect" type="button">Simpan &amp; Hubungkan</button>
+          <button class="btn-pill btn-pill--sm btn-pill--light-ghost" id="btnLogout" type="button">Logout</button>
+          <span class="token-status token-status--disconnected" id="tokenStatus">Belum terhubung</span>
+        </div>
+      </div>
+
+      <!-- ── TABS ── -->
+      <div class="tab-strip" id="adminTabs">
+        <button type="button" class="active" data-target="section-identifikasi">Identifikasi Diri</button>
+        <button type="button" data-target="section-refleksi">Refleksi Mata Kuliah</button>
+        <button type="button" data-target="section-keseluruhan">Refleksi Keseluruhan</button>
+        <button type="button" data-target="section-inovasi">Karya Inovasi</button>
+      </div>
+
+      <!-- ════════════════════════════
+           IDENTIFIKASI DIRI
+      ═════════════════════════════ -->
+      <section class="admin-section active" id="section-identifikasi">
+        <div class="panel">
+          <div class="panel__title">Identifikasi Diri</div>
+          <div class="panel__desc">Tiga poin visi yang ditampilkan pada bagian awal halaman publik.</div>
+
+          <form id="formIdentifikasi">
+            <div class="field field-with-counter">
+              <label for="visiPendidikanIndonesia">Visi Pendidikan Indonesia</label>
+              <textarea id="visiPendidikanIndonesia" data-counter="counterVisi1" maxlength="2000"></textarea>
+              <div class="char-counter"><span id="counterVisi1">0</span>/2000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="visiCalonGuru">Visi Sebagai Calon Guru</label>
+              <textarea id="visiCalonGuru" data-counter="counterVisi2" maxlength="2000"></textarea>
+              <div class="char-counter"><span id="counterVisi2">0</span>/2000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="langkahKonkret">Langkah Konkret</label>
+              <textarea id="langkahKonkret" data-counter="counterVisi3" maxlength="2000"></textarea>
+              <div class="char-counter"><span id="counterVisi3">0</span>/2000</div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-pill">Simpan Identifikasi Diri</button>
+              <span class="status-pill status-pill--idle" id="statusIdentifikasi"><span class="status-dot"></span>Belum disimpan</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════
+           REFLEKSI MATA KULIAH
+      ═════════════════════════════ -->
+      <section class="admin-section" id="section-refleksi">
+        <div class="panel">
+          <div class="panel__title">Daftar Refleksi Mata Kuliah</div>
+          <div class="panel__desc">11 slot mata kuliah wajib sudah tersedia. Klik Edit untuk mengisi refleksi 4C, atau tambahkan refleksi khusus.</div>
+          <div class="reflection-list" id="reflectionList"></div>
+          <div class="form-actions">
+            <button type="button" class="btn-pill btn-pill--light-ghost" id="btnAddCustom">+ Tambah Refleksi Custom</button>
+            <span class="status-pill status-pill--idle" id="statusReflectionList"><span class="status-dot"></span>Belum ada perubahan</span>
+          </div>
+        </div>
+
+        <div class="panel" id="panelReflectionForm" style="display:none;">
+          <div class="panel__title" id="reflectionFormTitle">Edit Refleksi</div>
+          <div class="panel__desc">Isi model 4C (Connection, Challenge, Concept, Change) beserta analisis artefak dan kaitan praktis.</div>
+
+          <form id="formRefleksi">
+            <input type="hidden" id="refId">
+            <div class="form-grid-2">
+              <div class="field">
+                <label for="refNamaMataKuliah">Nama Mata Kuliah</label>
+                <input type="text" id="refNamaMataKuliah" required>
+              </div>
+              <div class="field">
+                <label for="refPertemuanKe">Pertemuan ke-</label>
+                <input type="text" id="refPertemuanKe" placeholder="mis. II">
+              </div>
+            </div>
+            <div class="field">
+              <label for="refSemester">Semester</label>
+              <select id="refSemester">
+                <option value="1">Semester I</option>
+                <option value="2">Semester II</option>
+              </select>
+            </div>
+
+            <div class="field field-with-counter">
+              <label for="refConnection">Connection — keterkaitan dengan pengalaman/mata kuliah lain</label>
+              <textarea id="refConnection" data-counter="counterConnection" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterConnection">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="refChallenge">Challenge — tantangan yang dihadapi</label>
+              <textarea id="refChallenge" data-counter="counterChallenge" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterChallenge">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="refConcept">Concept — konsep kunci yang dipelajari</label>
+              <textarea id="refConcept" data-counter="counterConcept" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterConcept">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="refChange">Change — perubahan cara pandang/tindakan</label>
+              <textarea id="refChange" data-counter="counterChange" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterChange">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="refAnalisisArtefak">Analisis Artefak Pembelajaran</label>
+              <textarea id="refAnalisisArtefak" data-counter="counterAnalisis" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterAnalisis">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="refKaitanPraktis">Kaitan dengan Kompetensi Praktis Keguruan</label>
+              <textarea id="refKaitanPraktis" data-counter="counterKaitan" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterKaitan">0</span>/3000</div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-pill">Simpan Refleksi</button>
+              <button type="button" class="btn-pill btn-pill--light-ghost" id="btnCancelRefleksi">Batal</button>
+              <span class="status-pill status-pill--idle" id="statusRefleksi"><span class="status-dot"></span>Belum disimpan</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════
+           REFLEKSI KESELURUHAN
+      ═════════════════════════════ -->
+      <section class="admin-section" id="section-keseluruhan">
+        <div class="panel">
+          <div class="panel__title">Refleksi Keseluruhan Program PPG</div>
+          <div class="panel__desc">Pandangan menyeluruh tentang pendidikan Indonesia, upaya profesional, dan rencana tindak lanjut.</div>
+
+          <form id="formKeseluruhan">
+            <div class="field field-with-counter">
+              <label for="pandanganPendidikanIndonesia">Pandangan tentang Pendidikan Indonesia</label>
+              <textarea id="pandanganPendidikanIndonesia" data-counter="counterPandangan" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterPandangan">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="upayaGuruProfesional">Upaya Menjadi Guru Profesional</label>
+              <textarea id="upayaGuruProfesional" data-counter="counterUpaya" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterUpaya">0</span>/3000</div>
+            </div>
+
+            <div class="field">
+              <label>Rencana Tindak Lanjut</label>
+              <div id="rencanaTindakLanjutFields" style="display:flex;flex-direction:column;gap:10px;"></div>
+              <button type="button" class="icon-btn" id="btnAddRencana" style="margin-top:10px;">+ Tambah Poin</button>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-pill">Simpan Refleksi Keseluruhan</button>
+              <span class="status-pill status-pill--idle" id="statusKeseluruhan"><span class="status-dot"></span>Belum disimpan</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════
+           KARYA INOVASI
+      ═════════════════════════════ -->
+      <section class="admin-section" id="section-inovasi">
+        <div class="panel">
+          <div class="panel__title">Karya Inovasi Pendidikan</div>
+          <div class="panel__desc">Deskripsikan karya inovasi yang dikembangkan selama program PPG.</div>
+
+          <form id="formInovasi">
+            <div class="field">
+              <label for="namaKarya">Nama Karya</label>
+              <input type="text" id="namaKarya" maxlength="200">
+            </div>
+            <div class="field field-with-counter">
+              <label for="sasaranInovasi">Sasaran Inovasi</label>
+              <textarea id="sasaranInovasi" data-counter="counterSasaran" maxlength="2000"></textarea>
+              <div class="char-counter"><span id="counterSasaran">0</span>/2000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="gagasanRiset">Gagasan Riset</label>
+              <textarea id="gagasanRiset" data-counter="counterGagasan" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterGagasan">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="rancanganImplementasi">Rancangan Implementasi</label>
+              <textarea id="rancanganImplementasi" data-counter="counterRancangan" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterRancangan">0</span>/3000</div>
+            </div>
+            <div class="field field-with-counter">
+              <label for="evaluasi">Evaluasi</label>
+              <textarea id="evaluasi" data-counter="counterEvaluasi" maxlength="3000"></textarea>
+              <div class="char-counter"><span id="counterEvaluasi">0</span>/3000</div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-pill">Simpan Karya Inovasi</button>
+              <span class="status-pill status-pill--idle" id="statusInovasi"><span class="status-dot"></span>Belum disimpan</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
